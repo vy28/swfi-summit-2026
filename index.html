@@ -20,6 +20,10 @@
       --border:   rgba(0,0,0,0.13);
       --border-w: rgba(255,255,255,0.3);
 
+      --gold:     #c9a84c;
+      --gold-lt:  #e2c06a;
+      --gold-dim: rgba(201,168,76,0.18);
+
       --sans:  'Instrument Sans', sans-serif;
       --serif: 'Instrument Serif', serif;
 
@@ -160,17 +164,21 @@
     .btn-chrome { flex-shrink: 0; }
 
     .hero-nav {
-      border-top: 1px solid rgba(255,255,255,0.18);
+      border-top: 1px solid rgba(255,255,255,0.12);
       display: flex; align-items: center; justify-content: center;
-      flex-wrap: wrap; padding: 10px 0 0; margin-top: 8px;
+      flex-wrap: wrap; padding: 10px 0 0; margin-top: 8px; gap: 4px;
     }
     .hero-nav a {
-      font-family: var(--sans); font-size: 11px; font-weight: 400;
-      letter-spacing: 1.8px; text-transform: uppercase;
-      color: rgba(255,255,255,0.6); text-decoration: none;
-      padding: 6px 14px; transition: color .15s;
+      font-family: var(--sans); font-size: 12px; font-weight: 600;
+      letter-spacing: 1.6px; text-transform: uppercase;
+      color: rgba(255,255,255,0.85); text-decoration: none;
+      padding: 7px 18px; border-radius: 100px;
+      transition: background .2s, color .2s;
     }
-    .hero-nav a:hover { color: var(--white); }
+    .hero-nav a:hover {
+      color: var(--white);
+      background: rgba(255,255,255,0.1);
+    }
 
     .hero-headline {
       font-family: var(--serif); font-style: normal; font-weight: 400;
@@ -195,19 +203,36 @@
        TICKER
     ═══════════════════════════════════════════════════════════ */
     .ticker-wrap {
-      background: var(--white); overflow: hidden;
-      padding: 12px 0; border-bottom: 1px solid var(--border);
+      background: var(--black); overflow: hidden;
+      padding: 11px 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      position: relative;
     }
+    /* fade edges */
+    .ticker-wrap::before,
+    .ticker-wrap::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2;
+      pointer-events: none;
+    }
+    .ticker-wrap::before { left: 0;  background: linear-gradient(to right, var(--black), transparent); }
+    .ticker-wrap::after  { right: 0; background: linear-gradient(to left,  var(--black), transparent); }
     .ticker-track {
       display: flex; width: max-content;
       animation: ticker 40s linear infinite;
     }
     .ticker-track:hover { animation-play-state: paused; }
     .ticker-item {
-      font-family: var(--sans); font-weight: 500;
-      font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
-      color: var(--black); white-space: nowrap;
-      padding: 0 22px; border-right: 1px solid var(--border);
+      font-family: var(--sans); font-weight: 600;
+      font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase;
+      color: rgba(255,255,255,0.75); white-space: nowrap;
+      padding: 0 28px;
+      display: flex; align-items: center; gap: 28px;
+    }
+    .ticker-item::after {
+      content: ''; display: block;
+      width: 4px; height: 4px; border-radius: 50%;
+      background: var(--red); flex-shrink: 0;
     }
     @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
@@ -231,8 +256,9 @@
       color: var(--red); letter-spacing: -0.03em; line-height: 1;
     }
     .stat-label {
-      font-family: var(--sans); font-size: clamp(12px, 1.4vw, 18px);
-      color: var(--black); margin-top: 10px; opacity: 0.7;
+      font-family: var(--sans); font-size: clamp(11px, 1.2vw, 15px);
+      color: rgba(255,255,255,0.6); margin-top: 10px; line-height: 1.4;
+      text-align: center;
     }
 
     /* ═══════════════════════════════════════════════════════════
@@ -252,7 +278,7 @@
     }
     .tagline-row:last-child { margin-bottom: 0; }
     .tagline-text {
-      font-family: var(--serif); font-style: italic;
+      font-family: var(--serif); font-style: normal; font-weight: 400;
       font-size: clamp(26px, 4.5vw, 64px);
       letter-spacing: -0.03em; line-height: 1.15; white-space: nowrap;
     }
@@ -276,57 +302,66 @@
       display: flex; flex-direction: column; gap: 36px;
     }
     .tracks-heading {
-      font-family: var(--sans); font-weight: 600;
-      font-size: clamp(28px, 3.5vw, 48px);
-      color: var(--white); letter-spacing: -0.025em; line-height: 1.1;
+      font-family: var(--serif); font-style: italic; font-weight: 400;
+      font-size: clamp(28px, 3.5vw, 52px);
+      color: var(--white); letter-spacing: -0.02em; line-height: 1.15;
     }
     .tracks-cards {
-      display: flex; gap: 1px;
+      display: flex; gap: 12px;
       overflow-x: auto; scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      border: 1px solid rgba(0,0,0,0.2);
+      scrollbar-width: none; padding-bottom: 2px;
     }
     .tracks-cards::-webkit-scrollbar { display: none; }
     .track-card {
       flex-shrink: 0; scroll-snap-align: start;
-      padding: 32px 28px; display: flex; flex-direction: column;
+      padding: 36px 32px; display: flex; flex-direction: column;
       justify-content: space-between;
-      border-right: 1px solid rgba(0,0,0,0.15);
-      width: clamp(240px, 38vw, 420px);
-      min-height: 280px;
-      transition: background .25s;
+      width: clamp(260px, 38vw, 420px);
+      min-height: 300px;
+      border-radius: 2px;
+      transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s;
     }
-    .track-card:last-child { border-right: none; }
-    .track-card.white { background: var(--white); }
-    .track-card.glass { background: rgba(255,255,255,0.08); }
-    .track-card.glass:hover { background: rgba(255,255,255,0.13); }
+    .track-card:hover { transform: translateY(-6px); box-shadow: 0 24px 48px rgba(0,0,0,0.35); }
+    /* luxury ivory card */
+    .track-card.white {
+      background: linear-gradient(145deg, #faf7f2 0%, #f3ede4 100%);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-top: 3px solid #c9a84c;
+    }
+    /* luxury dark card */
+    .track-card.glass {
+      background: linear-gradient(145deg, rgba(20,10,5,0.85) 0%, rgba(35,18,8,0.9) 100%);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-top: 3px solid rgba(201,168,76,0.4);
+      backdrop-filter: blur(4px);
+    }
 
-    .track-top { display: flex; flex-direction: column; gap: 10px; }
+    .track-top { display: flex; flex-direction: column; gap: 12px; }
     .track-num {
-      font-family: var(--sans); font-size: 11px; font-weight: 600;
-      letter-spacing: 1.8px; text-transform: uppercase;
+      font-family: var(--sans); font-size: 10px; font-weight: 700;
+      letter-spacing: 2.5px; text-transform: uppercase;
     }
-    .track-card.white .track-num { color: var(--red); }
-    .track-card.glass .track-num { color: rgba(255,255,255,0.45); }
+    .track-card.white .track-num { color: #c9a84c; }
+    .track-card.glass .track-num { color: rgba(201,168,76,0.7); }
     .track-name {
-      font-family: var(--sans); font-weight: 600;
-      font-size: clamp(18px, 2.2vw, 28px);
-      letter-spacing: -0.02em; line-height: 1.15;
+      font-family: var(--serif); font-style: italic; font-weight: 400;
+      font-size: clamp(20px, 2.4vw, 30px);
+      letter-spacing: -0.01em; line-height: 1.2;
     }
-    .track-card.white .track-name { color: var(--black); }
-    .track-card.glass .track-name { color: var(--white); }
+    .track-card.white .track-name { color: #1a0f00; }
+    .track-card.glass .track-name { color: #f5ede0; }
     .track-sep {
-      height: 1px; margin: 20px 0 0;
+      height: 1px; margin: 16px 0 0;
     }
-    .track-card.white  .track-sep { background: var(--border); }
-    .track-card.glass  .track-sep { background: rgba(255,255,255,0.15); }
+    .track-card.white .track-sep { background: rgba(201,168,76,0.3); }
+    .track-card.glass .track-sep { background: rgba(201,168,76,0.2); }
     .track-desc {
       font-family: var(--sans); font-size: 13px; font-weight: 400;
-      line-height: 1.65; opacity: 0.5; padding-top: 16px;
+      line-height: 1.7; padding-top: 16px;
     }
-    .track-card.white .track-desc { color: var(--black); }
-    .track-card.glass .track-desc { color: var(--white); }
+    .track-card.white .track-desc { color: rgba(30,15,0,0.55); }
+    .track-card.glass .track-desc { color: rgba(245,237,224,0.5); }
 
     /* ═══════════════════════════════════════════════════════════
        AGENDA
@@ -579,12 +614,17 @@
       opacity: 0.7;
     }
     .wa-icon {
-      width: 36px; height: 36px; flex-shrink: 0;
+      width: 48px; height: 48px; flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
-      background: rgba(166,28,31,0.06); border: 1px solid rgba(166,28,31,0.15);
-      border-radius: 8px;
+      background: var(--red); border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(166,28,31,0.35);
+      transition: transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s;
     }
-    .wa-icon svg { width: 18px; height: 18px; display: block; }
+    .wa-row:hover .wa-icon {
+      transform: scale(1.1);
+      box-shadow: 0 8px 24px rgba(166,28,31,0.5);
+    }
+    .wa-icon svg { width: 22px; height: 22px; display: block; }
     .wa-name {
       font-family: var(--sans); font-weight: 600;
       font-size: clamp(18px, 2.4vw, 32px);
@@ -806,10 +846,11 @@
     ═══════════════════════════════════════════════════════════ */
     .delegates-section {
       background: var(--black);
-      padding: clamp(40px, 5vw, 64px) var(--px);
+      padding: clamp(56px, 7vw, 80px) var(--px);
       display: flex; flex-direction: column;
       align-items: center; gap: 40px;
       border-bottom: 1px solid rgba(255,255,255,0.08);
+      border-top: 1px solid rgba(255,255,255,0.08);
     }
     .delegates-label {
       font-family: var(--sans); font-size: 11px; font-weight: 500;
@@ -831,15 +872,26 @@
     }
     .delegate-item:last-child { border-right: none; }
     .delegate-icon {
-      width: 44px; height: 44px; opacity: 0.85;
+      width: 64px; height: 64px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      transition: background .25s, border-color .25s, transform .25s cubic-bezier(.22,1,.36,1);
     }
-    .delegate-icon svg { width: 100%; height: 100%; display: block; }
+    .delegate-item:hover .delegate-icon {
+      background: rgba(166,28,31,0.2);
+      border-color: rgba(166,28,31,0.4);
+      transform: translateY(-4px);
+    }
+    .delegate-icon svg { width: 30px; height: 30px; display: block; }
     .delegate-name {
       font-family: var(--sans); font-size: 10px; font-weight: 600;
       letter-spacing: 1.4px; text-transform: uppercase;
-      color: rgba(255,255,255,0.7); text-align: center;
-      line-height: 1.5;
+      color: rgba(255,255,255,0.55); text-align: center;
+      line-height: 1.6; transition: color .2s;
     }
+    .delegate-item:hover .delegate-name { color: var(--white); }
 
     /* ═══════════════════════════════════════════════════════════
        GLOBE
@@ -891,6 +943,145 @@
       .delegate-name { font-size: 9px; letter-spacing: 1px; }
       .delegate-icon { width: 34px; height: 34px; }
     }
+    /* ══ COLOR SCHEME — DEEP DARK + GOLD ═════════════════════════ */
+    body { background: #060103; }
+
+    /* Richer dark background on all dark sections */
+    .hero, .copy-strip, .delegates-section, .globe-section,
+    .what-inside, .faq-section, .ticker-wrap, .footer-minimal {
+      background: #060103;
+    }
+    .tracks-section { background: #0a0204; }
+    .globe-section::before {
+      background: radial-gradient(60% 50% at 50% 60%, rgba(166,28,31,0.09), transparent 70%);
+    }
+
+    /* Hero overlay: burgundy corner vignette matching the image */
+    .hero-overlay {
+      background:
+        radial-gradient(ellipse 75% 55% at 5% 0%, rgba(110,12,12,0.75) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 35% at 95% 5%, rgba(90,10,10,0.5) 0%, transparent 50%),
+        linear-gradient(to bottom,
+          rgba(6,1,3,0.12) 0%,
+          rgba(4,1,2,0.04) 35%,
+          rgba(6,1,3,0.58) 70%,
+          rgba(4,1,2,0.9)  100%);
+    }
+
+    /* Stats & tagline section on lighter bg get warm tint */
+    .stats { background: #0c0104; border-bottom-color: rgba(201,168,76,0.12); }
+    .tagline-section { background: #f5f0e8; border-bottom-color: rgba(201,168,76,0.2); }
+    .tagline-text.dim { color: rgba(20,8,0,0.25); }
+
+    /* Ticker on rich dark */
+    .ticker-wrap { border-color: rgba(201,168,76,0.12); }
+
+    /* ══ GOLD LUXURY LAYER ═══════════════════════════════════════ */
+
+    /* Hero — gold countdown numbers + gold nav border */
+    .cd-num { color: var(--gold); }
+    .hero-nav { border-top-color: rgba(201,168,76,0.2); }
+    .hero-nav a:hover { background: var(--gold-dim); color: var(--gold-lt); }
+    .hero-nav a::after { background: var(--gold); }
+
+    /* Hero — Partner with us button becomes gold */
+    .btn-solid {
+      background: var(--gold);
+      color: #1a0f00;
+      border-color: var(--gold);
+      font-weight: 700;
+    }
+    .btn-solid:hover { background: var(--gold-lt); border-color: var(--gold-lt); }
+
+    /* Stats — numbers in gold */
+    .stat-num { color: var(--gold); }
+    .stat:hover .stat-num { color: var(--gold-lt); }
+
+    /* Stats — gold top border on hover */
+    .stat::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--gold); transform: scaleX(0); transform-origin: left;
+      transition: transform .4s cubic-bezier(.22,1,.36,1);
+    }
+    .stat { position: relative; overflow: hidden; }
+    .stat:hover::before { transform: scaleX(1); }
+
+    /* Tagline — "dark" words in gold */
+    .tagline-text.dark { color: var(--gold); }
+
+    /* Copy strip — headline in gold */
+    .copy-strip-headline { color: var(--gold-lt); }
+    .copy-strip-label { color: rgba(201,168,76,0.6); }
+
+    /* Eyebrow labels → gold on dark sections */
+    .delegates-label,
+    .globe-eyebrow,
+    .wi-label,
+    .faq-tag,
+    .dallas-label,
+    .wa-label,
+    .partners-label,
+    .bp-eyebrow { color: var(--gold); }
+
+    /* Dallas section label */
+    .dallas-bullet-dot { background: var(--gold); }
+
+    /* Globe — "Dallas" in gold */
+    .globe-head h2 em { color: var(--gold); }
+
+    /* Who Attends wa-index in gold */
+    .wa-index { color: var(--gold); opacity: 1; }
+    .wa-row::after { background: var(--gold); }
+
+    /* Who Attends icons — gold border on hover */
+    .wa-row:hover .wa-icon { background: var(--gold); box-shadow: 0 8px 24px rgba(201,168,76,0.4); }
+
+    /* Agenda VIP badge — gold */
+    .agenda-vip { background: var(--gold); color: #1a0f00; }
+
+    /* Who-inside tagline sep */
+    .wi-tagline-sep { color: var(--gold); }
+
+    /* FAQ icon */
+    .faq-icon { color: var(--gold); opacity: 0.7; }
+    .faq-item.open .faq-icon { opacity: 1; }
+    .faq-question:hover { color: rgba(255,255,255,0.9); }
+
+    /* Apply buttons — solid is gold */
+    .apply-btn-solid {
+      background: var(--gold);
+      color: #1a0f00;
+      font-weight: 700;
+    }
+    .apply-btn-solid:hover { background: var(--gold-lt); transform: translateY(-2px); }
+
+    /* Partner tile hover accent */
+    .partner-tile:hover { background: var(--gold-dim); border-color: rgba(201,168,76,0.2); }
+    .partner-name { transition: color .2s; }
+    .partner-tile:hover .partner-name { color: #5a3a00; }
+
+    /* Tracks — white card gold accents already set; glass card refinement */
+    .tracks-section { background: #0d0600; }
+    .tracks-heading { color: var(--gold-lt); }
+
+    /* What Happens Inside card bottom accent */
+    .wi-card::after { background: var(--gold); }
+
+    /* Delegates icon hover glow */
+    .delegate-item:hover .delegate-icon {
+      background: var(--gold-dim);
+      border-color: rgba(201,168,76,0.5);
+    }
+
+    /* Footer links hover */
+    .footer-minimal-links a:hover { color: var(--gold); }
+
+    /* Scroll revealed sections: section borders gold tint */
+    .who-attends { border-top-color: rgba(201,168,76,0.15); }
+    .partners { border-top-color: rgba(201,168,76,0.15); }
+
+    /* ══ END GOLD LAYER ═══════════════════════════════════════════ */
+
     /* ── COPY STRIP ────────────────────────────────────────────── */
     .copy-strip {
       background: var(--black); border-bottom: 1px solid rgba(255,255,255,0.08);
@@ -964,6 +1155,21 @@
     .wi-card-desc {
       font-family: var(--sans); font-size: 13px; line-height: 1.65;
       color: rgba(255,255,255,0.4);
+    }
+    .wi-tagline {
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+      padding: clamp(24px,3vw,40px) 0; border-top: 1px solid rgba(255,255,255,0.07);
+      border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: clamp(24px,3vw,40px);
+    }
+    .wi-tagline-text {
+      font-family: var(--serif); font-style: italic; font-weight: 400;
+      font-size: clamp(20px, 3vw, 40px); letter-spacing: -0.02em; line-height: 1.2;
+    }
+    .wi-dim   { color: rgba(255,255,255,0.25); }
+    .wi-bright{ color: var(--white); }
+    .wi-tagline-sep {
+      font-family: var(--sans); font-size: clamp(16px,2vw,28px);
+      color: var(--red); font-weight: 300; flex-shrink: 0;
     }
     .wi-tag {
       display: inline-flex; align-items: center;
@@ -1048,29 +1254,63 @@
 
     /* ── COUNTDOWN PROMINENT ──────────────────────────────────── */
     .countdown-prominent {
-      position: absolute; left: 50%; transform: translateX(-50%);
-      top: 20px; z-index: 3;
-      display: flex; align-items: center; gap: 0;
+      display: flex; align-items: center; gap: 0; flex: 1; justify-content: center;
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 100px;
+      padding: 6px 16px;
+      background: rgba(201,168,76,0.06);
     }
     .cd-unit {
       display: flex; flex-direction: column; align-items: center;
-      padding: 0 16px;
+      padding: 0 clamp(6px, 1.2vw, 12px);
     }
     .cd-num {
-      font-family: var(--sans); font-weight: 600;
-      font-size: clamp(22px, 3.5vw, 48px);
-      color: var(--white); letter-spacing: -0.03em; line-height: 1;
+      font-family: var(--sans); font-weight: 700;
+      font-size: clamp(14px, 1.8vw, 22px);
+      color: var(--gold); letter-spacing: -0.02em; line-height: 1;
     }
     .cd-label {
-      font-family: var(--sans); font-size: 9px; font-weight: 500;
-      letter-spacing: 2px; text-transform: uppercase;
-      color: rgba(255,255,255,0.4); margin-top: 4px;
+      font-family: var(--sans); font-size: 7px; font-weight: 600;
+      letter-spacing: 1.6px; text-transform: uppercase;
+      color: rgba(201,168,76,0.5); margin-top: 2px;
     }
     .cd-sep {
-      font-family: var(--sans); font-size: clamp(18px,2.5vw,36px);
-      color: rgba(255,255,255,0.25); font-weight: 300;
-      align-self: flex-start; padding-top: 2px;
+      font-family: var(--sans); font-size: clamp(12px, 1.4vw, 16px);
+      color: rgba(201,168,76,0.3); font-weight: 300;
+      padding-bottom: 8px; align-self: flex-end;
     }
+
+    /* Logo text fallback */
+    .logo-text {
+      font-family: var(--sans); font-weight: 700; font-size: 16px;
+      letter-spacing: 3px; color: var(--white); text-transform: uppercase;
+    }
+    .logo-text span {
+      display: block; font-size: 8px; letter-spacing: 2px;
+      color: var(--gold); font-weight: 500; margin-top: 1px;
+    }
+
+    /* Floating audio button — fixed left-center */
+    .audio-float {
+      position: fixed; left: 20px; top: 50%; transform: translateY(-50%);
+      z-index: 500;
+      width: 42px; height: 42px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(6,1,3,0.75); border: 1px solid rgba(201,168,76,0.3);
+      backdrop-filter: blur(12px);
+      cursor: pointer; transition: all .2s;
+      color: rgba(255,255,255,0.65);
+    }
+    .audio-float:hover { border-color: var(--gold); color: var(--gold); background: rgba(20,8,0,0.9); }
+    .audio-float.sound-on { border-color: rgba(201,168,76,0.5); color: var(--gold); }
+    .audio-float svg { width: 16px; height: 16px; display: block; }
+
+    /* Navbar Apply Now button — gold secondary */
+    .btn-chrome {
+      border-color: rgba(201,168,76,0.5);
+      color: var(--gold);
+    }
+    .btn-chrome:hover { border-color: var(--gold); background: rgba(201,168,76,0.1); color: var(--gold-lt); }
 
     /* ── PARTNER BANNER (3 BUTTONS) ───────────────────────────── */
     .apply-buttons {
@@ -1190,7 +1430,7 @@
 
     <div class="hero-chrome">
       <div class="logo hero-load" style="--d:.05s">
-        <img src="http://localhost:3845/assets/4ecc88b150fc645e7813ede1bce43175c3b05d8e.svg" alt="SWFI" />
+        <img src="whitelogoswfi.png" alt="SWFI Summit" style="height:42px;width:auto;display:block;" />
       </div>
       <div class="countdown-prominent hero-load" style="--d:.15s">
         <div class="cd-unit"><span class="cd-num" id="cd-days">127</span><span class="cd-label">Days</span></div>
@@ -1200,13 +1440,6 @@
         <div class="cd-unit"><span class="cd-num" id="cd-min">07</span><span class="cd-label">Min</span></div>
       </div>
       <button class="btn btn-chrome hero-load" style="--d:.25s">Apply Now</button>
-      <button class="hero-audio-btn hero-load" id="audio-btn" style="--d:.28s" aria-label="Toggle sound">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-          <line x1="23" y1="9" x2="17" y2="15" class="mute-x"/>
-          <line x1="17" y1="9" x2="23" y2="15" class="mute-x"/>
-        </svg>
-      </button>
       <button class="hamburger hero-load" style="--d:.2s" id="hamburger" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
@@ -1227,8 +1460,8 @@
     <div class="hero-bottom">
       <div class="hero-actions">
         <div class="hero-btns hero-load" style="--d:.85s">
-          <button class="btn">Apply Now</button>
-          <button class="btn btn-solid">Partner with us</button>
+          <button class="btn btn-solid">Apply Now</button>
+          <button class="btn">Partner with us</button>
         </div>
         <p class="hero-date hero-load" style="--d:1s">AUG 31 – SEP 4 · DALLAS, TX</p>
       </div>
@@ -1272,28 +1505,20 @@
   <div class="stats">
     <div class="stat reveal" style="--d:.0s">
       <span class="stat-num">$10T+</span>
-      <span class="stat-label">Assets Represented</span>
+      <span class="stat-label">Collective AUM<br>in the room</span>
     </div>
     <div class="stat reveal" style="--d:.1s">
       <span class="stat-num">5</span>
-      <span class="stat-label">Days</span>
+      <span class="stat-label">Days of summits,<br>dinners & dealmaking</span>
     </div>
     <div class="stat reveal" style="--d:.2s">
-      <span class="stat-num">1000+</span>
-      <span class="stat-label">Decision Makers</span>
+      <span class="stat-num">$15B+</span>
+      <span class="stat-label">Expected<br>deal flow</span>
     </div>
     <div class="stat reveal" style="--d:.3s">
       <span class="stat-num">86+</span>
-      <span class="stat-label">Countries</span>
+      <span class="stat-label">Countries<br>represented</span>
     </div>
-  </div>
-
-  <!-- ══════════════════════════════════════════════
-       COPY STRIP
-  ══════════════════════════════════════════════ -->
-  <div class="copy-strip">
-    <p class="copy-strip-label reveal">SWFI Summit 2026</p>
-    <p class="copy-strip-headline reveal" style="--d:.1s">Where the most influential power<br>meets global opportunity</p>
   </div>
 
   <!-- ══════════════════════════════════════════════
@@ -1301,18 +1526,14 @@
   ══════════════════════════════════════════════ -->
   <section class="tagline-section">
     <div class="tagline-row">
-      <span class="tagline-text dim reveal" style="--d:.0s">10 Minutes on the</span>
-      <div class="tagline-pill reveal-scale" style="--d:.15s">
-        <img src="http://localhost:3845/assets/70a88fb0bbc1ebdf47c3edf0c937f93e02f2e8fc.png" alt="" />
-      </div>
-      <span class="tagline-text dim reveal" style="--d:.05s">main stage</span>
+      <span class="tagline-text dim reveal" style="--d:.0s">Largest sovereign capital</span>
+      <div class="tagline-pill reveal-scale" style="--d:.15s; background: linear-gradient(135deg,#2a1a08,#5a3010);"></div>
+      <span class="tagline-text dim reveal" style="--d:.05s">gathering</span>
     </div>
     <div class="tagline-row">
-      <span class="tagline-text dark reveal" style="--d:.2s">could</span>
-      <div class="tagline-pill reveal-scale" style="--d:.3s">
-        <img src="http://localhost:3845/assets/4a3b8f171045620059f3f6bfb3086848f502e8f6.png" alt="" />
-      </div>
-      <span class="tagline-text dark reveal" style="--d:.25s">change your company</span>
+      <span class="tagline-text dark reveal" style="--d:.2s">on</span>
+      <div class="tagline-pill reveal-scale" style="--d:.3s; background: linear-gradient(135deg,#1a0a04,#3d1f0a);"></div>
+      <span class="tagline-text dark reveal" style="--d:.25s">US Soil</span>
     </div>
   </section>
 
@@ -1327,6 +1548,7 @@
       </div>
       <p class="wi-intro">A curated, closed-door experience designed to foster meaningful discussions, strategic partnerships, and long-term value creation.</p>
     </div>
+
     <div class="wi-grid">
 
       <div class="wi-card reveal" style="--d:.0s">
@@ -1383,77 +1605,68 @@
     <p class="delegates-label reveal">Who will be in the room</p>
     <div class="delegates-grid">
 
+      <!-- Sovereign Wealth Funds: crown + vault -->
       <div class="delegate-item reveal" style="--d:.05s">
         <div class="delegate-icon">
-          <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="4" y="38" width="36" height="2" rx="1" fill="white" opacity=".5"/>
-            <rect x="8" y="20" width="3" height="18" rx="1" fill="white"/>
-            <rect x="14" y="20" width="3" height="18" rx="1" fill="white"/>
-            <rect x="20" y="20" width="3" height="18" rx="1" fill="white"/>
-            <rect x="26" y="20" width="3" height="18" rx="1" fill="white"/>
-            <rect x="32" y="20" width="3" height="18" rx="1" fill="white"/>
-            <path d="M2 20L22 6L42 20" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <rect x="16" y="6" width="12" height="2" rx="1" fill="#a61c1f"/>
+          <svg viewBox="0 0 32 32" fill="none" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 28h24M6 28V16M26 28V16M11 28V16M21 28V16M16 28V16"/>
+            <path d="M3 16h26"/>
+            <path d="M6 12L16 4l10 8"/>
+            <circle cx="16" cy="4" r="1.5" fill="white" stroke="none"/>
           </svg>
         </div>
         <span class="delegate-name">Sovereign<br>Wealth Funds</span>
       </div>
 
+      <!-- Pension Funds: shield + growth -->
       <div class="delegate-item reveal" style="--d:.1s">
         <div class="delegate-icon">
-          <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="5" y="28" width="7" height="12" rx="1" fill="white" opacity=".9"/>
-            <rect x="15" y="20" width="7" height="20" rx="1" fill="white" opacity=".7"/>
-            <rect x="25" y="14" width="7" height="26" rx="1" fill="white" opacity=".8"/>
-            <rect x="35" y="8" width="4" height="32" rx="1" fill="#a61c1f"/>
-            <path d="M7 26L16 18L26 12L37 7" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity=".5"/>
+          <svg viewBox="0 0 32 32" fill="none" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 3L5 7v8c0 7 4.8 12.4 11 14 6.2-1.6 11-7 11-14V7L16 3z"/>
+            <polyline points="10,16 14,20 22,12"/>
           </svg>
         </div>
         <span class="delegate-name">Pension<br>Funds</span>
       </div>
 
+      <!-- Institutional Investors: handshake -->
       <div class="delegate-item reveal" style="--d:.15s">
         <div class="delegate-icon">
-          <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="22" cy="22" r="5" stroke="white" stroke-width="1.5"/>
-            <circle cx="7" cy="12" r="3.5" stroke="white" stroke-width="1.5"/>
-            <circle cx="37" cy="12" r="3.5" stroke="white" stroke-width="1.5"/>
-            <circle cx="7" cy="32" r="3.5" stroke="white" stroke-width="1.5"/>
-            <circle cx="37" cy="32" r="3.5" stroke="white" stroke-width="1.5"/>
-            <line x1="10" y1="13.5" x2="17" y2="18" stroke="white" stroke-width="1.2" opacity=".6"/>
-            <line x1="34" y1="13.5" x2="27" y2="18" stroke="white" stroke-width="1.2" opacity=".6"/>
-            <line x1="10" y1="30.5" x2="17" y2="26" stroke="white" stroke-width="1.2" opacity=".6"/>
-            <line x1="34" y1="30.5" x2="27" y2="26" stroke="white" stroke-width="1.2" opacity=".6"/>
-            <circle cx="22" cy="22" r="2" fill="#a61c1f"/>
+          <svg viewBox="0 0 32 32" fill="none" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 10h5l4 4h6l4-4h5"/>
+            <path d="M2 10v5l4 3 3-2 3 2 3-2 3 2 4-3v-5"/>
+            <path d="M7 18l2 5h14l2-5"/>
+            <line x1="13" y1="22" x2="13" y2="27"/>
+            <line x1="19" y1="22" x2="19" y2="27"/>
           </svg>
         </div>
         <span class="delegate-name">Institutional<br>Investors</span>
       </div>
 
+      <!-- Family Offices: diamond / estate -->
       <div class="delegate-item reveal" style="--d:.2s">
         <div class="delegate-icon">
-          <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M22 5L38 16V38H6V16L22 5Z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
-            <rect x="16" y="26" width="12" height="12" rx="1" stroke="white" stroke-width="1.5"/>
-            <path d="M22 5V16" stroke="white" stroke-width="1.2" opacity=".4"/>
-            <rect x="18" y="18" width="8" height="6" rx="1" fill="white" opacity=".2"/>
-            <rect x="19" y="29" width="2" height="4" rx=".5" fill="#a61c1f"/>
-            <rect x="23" y="29" width="2" height="4" rx=".5" fill="#a61c1f"/>
+          <svg viewBox="0 0 32 32" fill="none" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="16,3 29,12 29,29 3,29 3,12"/>
+            <rect x="12" y="20" width="8" height="9" rx="1"/>
+            <polyline points="3,12 16,3 29,12"/>
+            <line x1="16" y1="3" x2="16" y2="12"/>
+            <rect x="11" y="14" width="5" height="4" rx="0.5" fill="rgba(255,255,255,0.25)" stroke="white" stroke-width="1"/>
           </svg>
         </div>
         <span class="delegate-name">Family<br>Offices</span>
       </div>
 
+      <!-- Government & Policy: globe + laurel -->
       <div class="delegate-item reveal" style="--d:.25s">
         <div class="delegate-icon">
-          <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M22 4C22 4 8 13 8 24C8 30 14 36 22 38C30 36 36 30 36 24C36 13 22 4 22 4Z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
-            <rect x="8" y="20" width="28" height="1.5" rx=".75" fill="white" opacity=".3"/>
-            <rect x="18" y="36" width="8" height="4" rx="1" fill="white" opacity=".9"/>
-            <rect x="4" y="36" width="36" height="2" rx="1" fill="white" opacity=".4"/>
-            <line x1="22" y1="4" x2="22" y2="38" stroke="white" stroke-width="1" opacity=".3"/>
-            <ellipse cx="22" cy="21" rx="7" ry="17" stroke="white" stroke-width="1" opacity=".3"/>
-            <circle cx="22" cy="21" r="3" fill="#a61c1f"/>
+          <svg viewBox="0 0 32 32" fill="none" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="16" cy="16" r="12"/>
+            <path d="M16 4c-3 3-5 7-5 12s2 9 5 12"/>
+            <path d="M16 4c3 3 5 7 5 12s-2 9-5 12"/>
+            <line x1="4" y1="16" x2="28" y2="16" opacity=".6"/>
+            <line x1="5" y1="11" x2="27" y2="11" opacity=".35"/>
+            <line x1="5" y1="21" x2="27" y2="21" opacity=".35"/>
           </svg>
         </div>
         <span class="delegate-name">Government &<br>Policy Leaders</span>
@@ -1467,8 +1680,8 @@
   ══════════════════════════════════════════════ -->
   <section class="globe-section">
     <div class="globe-head reveal">
-      <div class="globe-eyebrow">A global gathering</div>
-      <h2>Where the world converges<br>on <em>Dallas.</em></h2>
+      <div class="globe-eyebrow">Aug 31 – Sep 4 · Dallas, Texas</div>
+      <h2><em>Dallas.</em><br>A rising global capital.</h2>
     </div>
     <div class="globe-wrap" id="globe-wrap">
       <canvas id="globe"></canvas>
@@ -1533,7 +1746,7 @@
   <!-- ══════════════════════════════════════════════
        AGENDA
   ══════════════════════════════════════════════ -->
-  <section class="agenda-section">
+  <section class="agenda-section" style="display:none">
     <div class="agenda-header">
       <h2 class="agenda-title reveal-blur">The Agenda</h2>
       <div class="agenda-tabs reveal" style="--d:.1s">
@@ -1759,7 +1972,7 @@
   ══════════════════════════════════════════════ -->
   <footer class="footer-minimal">
     <div class="footer-minimal-logo">
-      <img src="http://localhost:3845/assets/4ecc88b150fc645e7813ede1bce43175c3b05d8e.svg" alt="SWFI" />
+      <div class="logo-text">SWFI<span>Summit 2026</span></div>
     </div>
     <nav class="footer-minimal-links">
       <a href="#">Agenda</a>
@@ -1771,27 +1984,40 @@
     <p class="footer-minimal-copy">© SWFI 2026</p>
   </footer>
 
+  <!-- floating audio button -->
+  <button class="audio-float" id="audio-btn" aria-label="Toggle sound">
+    <!-- muted icon (shown by default) -->
+    <svg id="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+    </svg>
+    <!-- active/sound-on icon (hidden by default) -->
+    <svg id="icon-active" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+    </svg>
+  </button>
+
   <script>
     /* ── Audio toggle ──────────────────────────────────────────── */
     (function () {
-      const video = document.getElementById('hero-video');
-      const btn   = document.getElementById('audio-btn');
-      const label = document.getElementById('audio-label');
+      const video      = document.getElementById('hero-video');
+      const btn        = document.getElementById('audio-btn');
+      const iconMuted  = document.getElementById('icon-muted');
+      const iconActive = document.getElementById('icon-active');
       if (!video || !btn) return;
-      const xLines = btn.querySelectorAll('.mute-x');
 
       function setMuted(muted) {
         video.muted = muted;
-        label.textContent = muted ? 'Sound off' : 'Sound on';
-        xLines.forEach(l => { l.style.display = muted ? '' : 'none'; });
+        iconMuted .style.display = muted ? 'block' : 'none';
+        iconActive.style.display = muted ? 'none'  : 'block';
+        btn.classList.toggle('sound-on', !muted);
       }
 
-      /* Auto-unmute on first user interaction (browsers require muted for autoplay) */
+      /* Auto-unmute on first interaction */
       function tryUnmute() {
         setMuted(false);
-        document.removeEventListener('click',     tryUnmute);
-        document.removeEventListener('keydown',   tryUnmute);
-        document.removeEventListener('touchstart',tryUnmute);
       }
       document.addEventListener('click',      tryUnmute, { once: true });
       document.addEventListener('keydown',    tryUnmute, { once: true });
@@ -1799,7 +2025,7 @@
 
       /* Manual toggle */
       btn.addEventListener('click', e => {
-        e.stopPropagation(); /* don't also trigger tryUnmute */
+        e.stopPropagation();
         setMuted(!video.muted);
       });
     })();
@@ -1899,7 +2125,7 @@
 
       /* pre-sample continent dots */
       const DOTS = [];
-      const STEP = 2.2;
+      const STEP = 3.0;
       for (let lat=-85; lat<=85; lat+=STEP) {
         const lonStep = STEP / Math.max(0.2, Math.cos(lat*RAD));
         for (let lon=-180; lon<=180; lon+=lonStep) {
@@ -1984,9 +2210,10 @@
         return { x: cx+(l/180)*(w/2), y: cy-(lat/90)*(h/2), z:1 };
       }
 
-      /* accent colour — our red */
-      const RED      = '#a61c1f';
-      const RED_GLOW = 'rgba(166,28,31,';
+      const RED      = '#c12023';
+      const RED_GLOW = 'rgba(193,32,35,';
+      const GOLD     = '#c9a84c';
+      const GOLD_GLOW= 'rgba(201,168,76,';
 
       function frame(now) {
         const dt = (now - t0) / 1000; t0 = now;
@@ -1996,25 +2223,33 @@
         ctx.clearRect(0, 0, W, H);
         const cx=W/2, cy=H/2, R=Math.min(W,H)*0.42;
 
-        /* bg halo */
-        const halo = ctx.createRadialGradient(cx, cy, R*0.5, cx, cy, R*1.6);
-        halo.addColorStop(0, RED_GLOW+'0.06)');
+        /* bg halo — warm gold-red glow */
+        const halo = ctx.createRadialGradient(cx, cy, R*0.3, cx, cy, R*1.5);
+        halo.addColorStop(0, GOLD_GLOW+'0.05)');
+        halo.addColorStop(0.5, RED_GLOW+'0.04)');
         halo.addColorStop(1, 'rgba(0,0,0,0)');
         ctx.fillStyle = halo;
-        ctx.beginPath(); ctx.arc(cx, cy, R*1.6, 0, Math.PI*2); ctx.fill();
+        ctx.beginPath(); ctx.arc(cx, cy, R*1.5, 0, Math.PI*2); ctx.fill();
 
         if (!flat) {
+          /* globe sphere base (dark warm) */
+          const sphereGrad = ctx.createRadialGradient(cx-R*0.3, cy-R*0.3, R*0.1, cx, cy, R);
+          sphereGrad.addColorStop(0, 'rgba(25,8,5,0.95)');
+          sphereGrad.addColorStop(1, 'rgba(6,1,2,0.98)');
+          ctx.fillStyle = sphereGrad;
+          ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI*2); ctx.fill();
+
           /* globe rim */
-          ctx.strokeStyle = 'rgba(255,255,255,0.07)';
-          ctx.lineWidth = 1*DPR;
+          ctx.strokeStyle = GOLD_GLOW+'0.3)';
+          ctx.lineWidth = 1.5*DPR;
           ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI*2); ctx.stroke();
 
-          /* graticule */
-          ctx.strokeStyle = 'rgba(255,255,255,0.05)';
-          ctx.lineWidth = 1*DPR;
+          /* graticule — subtle gold tint */
+          ctx.strokeStyle = GOLD_GLOW+'0.07)';
+          ctx.lineWidth = 0.8*DPR;
           for (let lat=-60; lat<=60; lat+=30) {
             ctx.beginPath(); let s=false;
-            for (let lon=-180; lon<=180; lon+=4) {
+            for (let lon=-180; lon<=180; lon+=3) {
               const p = project(lonLatToXYZ(lon,lat), cx, cy, R);
               if (p.z>0) { s ? ctx.lineTo(p.x,p.y) : ctx.moveTo(p.x,p.y); s=true; } else s=false;
             }
@@ -2022,28 +2257,39 @@
           }
           for (let lon=-150; lon<=180; lon+=30) {
             ctx.beginPath(); let s=false;
-            for (let lat=-85; lat<=85; lat+=4) {
+            for (let lat=-85; lat<=85; lat+=3) {
               const p = project(lonLatToXYZ(lon,lat), cx, cy, R);
               if (p.z>0) { s ? ctx.lineTo(p.x,p.y) : ctx.moveTo(p.x,p.y); s=true; } else s=false;
             }
             ctx.stroke();
           }
 
-          /* continent dots */
+          /* continent dots — GOLD */
           for (const [lon,lat] of DOTS) {
             const p = project(lonLatToXYZ(lon,lat), cx, cy, R);
             if (p.z <= 0) continue;
-            ctx.fillStyle = `rgba(255,255,255,${(0.18+0.55*p.z).toFixed(3)})`;
-            const r = (0.9+0.9*p.z)*DPR;
+            const a = 0.25 + 0.65 * p.z;
+            ctx.fillStyle = `rgba(201,168,76,${a.toFixed(3)})`;
+            const r = (0.8 + 1.0*p.z) * DPR;
             ctx.beginPath(); ctx.arc(p.x, p.y, r, 0, Math.PI*2); ctx.fill();
           }
 
-          /* arc routes */
+          /* arc routes — bright red, thicker */
           const phase = (now/1000) % 1;
           for (const a of ARCS) {
-            ctx.lineWidth = 1.2*DPR;
-            ctx.strokeStyle = RED_GLOW+'0.4)';
+            /* draw arc glow first */
+            ctx.lineWidth = 2.5*DPR;
+            ctx.strokeStyle = RED_GLOW+'0.15)';
             let s=false; ctx.beginPath();
+            for (let i=0; i<a.pts.length; i++) {
+              const p = project(a.pts[i], cx, cy, R);
+              if (p.z > -0.05) { s ? ctx.lineTo(p.x,p.y) : ctx.moveTo(p.x,p.y); s=true; } else s=false;
+            }
+            ctx.stroke();
+            /* main arc line */
+            ctx.lineWidth = 1.4*DPR;
+            ctx.strokeStyle = RED_GLOW+'0.7)';
+            s=false; ctx.beginPath();
             for (let i=0; i<a.pts.length; i++) {
               const p = project(a.pts[i], cx, cy, R);
               if (p.z > -0.05) { s ? ctx.lineTo(p.x,p.y) : ctx.moveTo(p.x,p.y); s=true; } else s=false;
@@ -2054,42 +2300,55 @@
             const idx = Math.floor(phase * a.pts.length);
             const pp  = project(a.pts[idx], cx, cy, R);
             if (pp.z > 0) {
+              ctx.fillStyle = RED_GLOW+'0.25)';
+              ctx.beginPath(); ctx.arc(pp.x, pp.y, 7*DPR, 0, Math.PI*2); ctx.fill();
               ctx.fillStyle = RED;
-              ctx.beginPath(); ctx.arc(pp.x, pp.y, 2.2*DPR, 0, Math.PI*2); ctx.fill();
-              ctx.fillStyle = RED_GLOW+'0.2)';
-              ctx.beginPath(); ctx.arc(pp.x, pp.y, 6*DPR,   0, Math.PI*2); ctx.fill();
+              ctx.beginPath(); ctx.arc(pp.x, pp.y, 2.5*DPR, 0, Math.PI*2); ctx.fill();
             }
 
-            /* origin dot + label */
+            /* origin dot + label (key cities only get label) */
             const op  = project(lonLatToXYZ(a.origin.lon, a.origin.lat), cx, cy, R);
             const isKey = a.origin.key;
-            if (op.z > 0) {
-              const dotR = isKey ? 3.5*DPR : 1.8*DPR;
-              if (isKey) {
-                /* glow ring for key cities */
-                ctx.fillStyle = 'rgba(255,255,255,0.12)';
-                ctx.beginPath(); ctx.arc(op.x, op.y, dotR*3, 0, Math.PI*2); ctx.fill();
-              }
-              ctx.fillStyle = isKey ? '#ffffff' : 'rgba(255,255,255,0.7)';
+            if (op.z > 0.1) {
+              const dotR = isKey ? 3*DPR : 2*DPR;
+              /* dot glow */
+              ctx.fillStyle = isKey ? GOLD_GLOW+'0.2)' : 'rgba(255,255,255,0.08)';
+              ctx.beginPath(); ctx.arc(op.x, op.y, dotR*2.5, 0, Math.PI*2); ctx.fill();
+              /* dot */
+              ctx.fillStyle = isKey ? GOLD : 'rgba(255,255,255,0.6)';
               ctx.beginPath(); ctx.arc(op.x, op.y, dotR, 0, Math.PI*2); ctx.fill();
-              ctx.font = `${isKey ? 600 : 400} ${isKey ? 11*DPR : 9*DPR}px "Instrument Sans", sans-serif`;
-              ctx.fillStyle = isKey ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.5)';
-              ctx.fillText(a.origin.name, op.x + (dotR+4), op.y - 4*DPR);
+              /* label — only for key cities, on visible side */
+              if (isKey && op.z > 0.25) {
+                ctx.font = `600 ${10*DPR}px "Instrument Sans", sans-serif`;
+                ctx.fillStyle = GOLD_GLOW+'0.9)';
+                ctx.fillText(a.origin.name, op.x + dotR + 4*DPR, op.y + 3*DPR);
+              }
             }
           }
 
-          /* Dallas marker */
+          /* Dallas marker — gold + red glow */
           const dp = project(lonLatToXYZ(DALLAS.lon, DALLAS.lat), cx, cy, R);
           if (dp.z > 0) {
-            ctx.fillStyle = RED_GLOW+'0.15)';
-            ctx.beginPath(); ctx.arc(dp.x, dp.y, 18*DPR, 0, Math.PI*2); ctx.fill();
-            ctx.fillStyle = RED_GLOW+'0.3)';
-            ctx.beginPath(); ctx.arc(dp.x, dp.y, 10*DPR, 0, Math.PI*2); ctx.fill();
-            ctx.fillStyle = RED;
-            ctx.beginPath(); ctx.arc(dp.x, dp.y, 4*DPR,  0, Math.PI*2); ctx.fill();
-            ctx.font = `italic ${18*DPR}px "Instrument Serif", serif`;
-            ctx.fillStyle = RED;
-            ctx.fillText('Dallas', dp.x+12*DPR, dp.y+5*DPR);
+            /* outer gold glow */
+            ctx.fillStyle = GOLD_GLOW+'0.12)';
+            ctx.beginPath(); ctx.arc(dp.x, dp.y, 24*DPR, 0, Math.PI*2); ctx.fill();
+            /* inner red glow */
+            ctx.fillStyle = RED_GLOW+'0.35)';
+            ctx.beginPath(); ctx.arc(dp.x, dp.y, 14*DPR, 0, Math.PI*2); ctx.fill();
+            /* core dot — gold */
+            ctx.fillStyle = GOLD;
+            ctx.beginPath(); ctx.arc(dp.x, dp.y, 5*DPR, 0, Math.PI*2); ctx.fill();
+            /* pulsing ring — gold */
+            const pulse = 0.85 + 0.15*Math.sin(now*0.004);
+            ctx.strokeStyle = GOLD_GLOW+'0.6)';
+            ctx.lineWidth = 1.5*DPR;
+            ctx.beginPath(); ctx.arc(dp.x, dp.y, 10*DPR*pulse, 0, Math.PI*2); ctx.stroke();
+            /* label */
+            if (dp.z > 0.15) {
+              ctx.font = `700 ${12*DPR}px "Instrument Sans", sans-serif`;
+              ctx.fillStyle = GOLD;
+              ctx.fillText('★ DALLAS', dp.x + 10*DPR, dp.y - 8*DPR);
+            }
           }
 
         } else {
