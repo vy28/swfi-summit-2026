@@ -564,71 +564,97 @@
        WHO ATTENDS
     ═══════════════════════════════════════════════════════════ */
     .who-attends {
-      background: var(--white);
-      border-top: 1px solid var(--border);
+      background: #060103;
+      border-top: 1px solid rgba(201,168,76,0.15);
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: start;
+      grid-template-columns: 1fr 1.2fr;
+      grid-template-rows: 1fr auto;
     }
     .wa-left {
-      padding: clamp(56px,7vw,96px) clamp(24px,4vw,56px) clamp(56px,7vw,96px) var(--px);
-      border-right: 1px solid var(--border);
-      position: sticky; top: 0;
-      display: flex; flex-direction: column; gap: 20px;
+      grid-column: 1; grid-row: 1;
+      padding: clamp(48px,6vw,80px) clamp(24px,4vw,56px) clamp(48px,6vw,80px) var(--px);
+      border-right: 1px solid rgba(201,168,76,0.15);
+      display: flex; flex-direction: column; gap: 20px; justify-content: center;
     }
     .wa-label {
-      font-family: var(--sans); font-size: 11px; font-weight: 500;
-      letter-spacing: 2.2px; text-transform: uppercase; color: var(--red);
+      font-family: var(--sans); font-size: 11px; font-weight: 600;
+      letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold);
     }
+    .wa-gold-line { width: 36px; height: 1px; background: var(--gold); opacity: 0.5; }
     .wa-title {
-      font-family: var(--sans); font-weight: 600;
-      font-size: clamp(32px, 4vw, 52px);
-      line-height: 1.05; letter-spacing: -0.03em; color: var(--black);
+      font-family: var(--serif); font-weight: 400;
+      font-size: clamp(30px, 3.8vw, 52px);
+      line-height: 1.12; letter-spacing: -0.02em; color: var(--white);
     }
+    .wa-title em { font-style: italic; color: var(--gold); }
     .wa-note {
-      font-family: var(--sans); font-size: 13px; line-height: 1.7;
-      color: rgba(0,0,0,0.4); max-width: 280px; margin-top: 8px;
+      font-family: var(--sans); font-size: 14px; line-height: 1.7;
+      color: rgba(255,255,255,0.4); max-width: 300px;
     }
     .wa-right {
+      grid-column: 2; grid-row: 1;
       display: flex; flex-direction: column;
-      padding: clamp(56px,7vw,96px) var(--px) clamp(56px,7vw,96px) clamp(24px,4vw,56px);
     }
     .wa-row {
       display: flex; align-items: center; gap: 20px;
-      padding: clamp(18px,2.5vw,28px) 0;
-      border-bottom: 1px solid var(--border);
-      position: relative; cursor: default;
-      transition: gap .3s cubic-bezier(.22,1,.36,1);
+      padding: clamp(14px,2vw,22px) clamp(24px,3vw,40px);
+      border-bottom: 1px solid rgba(201,168,76,0.1);
+      cursor: default; transition: background .2s;
     }
-    .wa-row:first-child { border-top: 1px solid var(--border); }
-    .wa-row::after {
-      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-      width: 0; background: var(--red);
-      transition: width .35s cubic-bezier(.22,1,.36,1);
+    .wa-row:first-child { border-top: 1px solid rgba(201,168,76,0.1); }
+    .wa-row:hover { background: rgba(201,168,76,0.04); }
+    .wa-thumb {
+      width: clamp(110px,12vw,160px); height: clamp(72px,8vw,104px);
+      flex-shrink: 0; overflow: hidden; border-radius: 3px;
+      border: 1px solid rgba(201,168,76,0.2);
     }
-    .wa-row:hover::after { width: 2px; }
-    .wa-row:hover { gap: 28px; }
-    .wa-index {
-      font-family: var(--sans); font-size: 11px; font-weight: 600;
-      letter-spacing: 1px; color: var(--red); width: 20px; flex-shrink: 0;
-      opacity: 0.7;
+    .wa-thumb img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      filter: brightness(0.8) saturate(0.85);
+      transition: transform .5s ease, filter .3s;
     }
-    .wa-icon {
-      width: 48px; height: 48px; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      background: var(--red); border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(166,28,31,0.35);
-      transition: transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s;
-    }
-    .wa-row:hover .wa-icon {
-      transform: scale(1.1);
-      box-shadow: 0 8px 24px rgba(166,28,31,0.5);
-    }
-    .wa-icon svg { width: 22px; height: 22px; display: block; }
+    .wa-row:hover .wa-thumb img { transform: scale(1.06); filter: brightness(0.95) saturate(1); }
+    .wa-info { flex: 1; display: flex; flex-direction: column; gap: 5px; }
     .wa-name {
-      font-family: var(--sans); font-weight: 600;
-      font-size: clamp(18px, 2.4vw, 32px);
-      letter-spacing: -0.02em; color: var(--black); line-height: 1.1;
+      font-family: var(--sans); font-weight: 700;
+      font-size: clamp(12px, 1.3vw, 15px);
+      letter-spacing: 1.8px; text-transform: uppercase; color: var(--white);
+    }
+    .wa-desc {
+      font-family: var(--sans); font-size: 13px;
+      color: rgba(255,255,255,0.4); line-height: 1.4;
+    }
+    .wa-bottom-bar {
+      grid-column: 1 / -1; grid-row: 2;
+      padding: clamp(20px,3vw,32px) var(--px);
+      display: flex; align-items: center; justify-content: center; gap: 20px;
+      background: linear-gradient(135deg, #1a0500 0%, #2d0a02 50%, #1a0500 100%);
+      border-top: 1px solid rgba(201,168,76,0.35);
+      border-bottom: 1px solid rgba(201,168,76,0.35);
+      position: relative; overflow: hidden;
+    }
+    .wa-bottom-bar::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.06) 50%, transparent 100%);
+      pointer-events: none;
+    }
+    .wa-bottom-bar span {
+      font-family: var(--sans); font-size: clamp(11px,1.4vw,14px); font-weight: 700;
+      letter-spacing: clamp(3px,0.4vw,5px); text-transform: uppercase;
+      color: var(--gold);
+      text-shadow: 0 0 20px rgba(201,168,76,0.4);
+    }
+    .wa-diamond {
+      width: 10px; height: 10px; background: var(--gold);
+      transform: rotate(45deg); flex-shrink: 0;
+      box-shadow: 0 0 12px rgba(201,168,76,0.6);
+    }
+    @media (max-width: 768px) {
+      .who-attends { grid-template-columns: 1fr; grid-template-rows: auto auto auto; }
+      .wa-left { grid-column: 1; border-right: none; border-bottom: 1px solid rgba(201,168,76,0.15); }
+      .wa-right { grid-column: 1; }
+      .wa-bottom-bar { grid-column: 1; }
+      .wa-thumb { width: 90px; height: 60px; }
     }
     /* Agenda day panels */
     .agenda-day { display: none; flex-direction: column; }
@@ -973,7 +999,7 @@
     /* Stats & tagline section on lighter bg get warm tint */
     .stats { background: #0c0104; border-bottom-color: rgba(201,168,76,0.12); }
     .tagline-section { background: #f5f0e8; border-bottom-color: rgba(201,168,76,0.2); }
-    .tagline-text.dim { color: rgba(20,8,0,0.25); }
+    .tagline-text.dim { color: rgba(10,4,0,0.88); }
 
     /* Ticker on rich dark */
     .ticker-wrap { border-color: rgba(201,168,76,0.12); }
@@ -1543,7 +1569,7 @@
   ══════════════════════════════════════════════ -->
   <div class="stats">
     <div class="stat reveal" style="--d:.0s">
-      <span class="stat-num">$10T+</span>
+      <span class="stat-num">$10T</span>
       <span class="stat-label">Collective AUM<br>in the room</span>
     </div>
     <div class="stat reveal" style="--d:.1s">
@@ -1551,7 +1577,7 @@
       <span class="stat-label">Days of summits,<br>dinners & dealmaking</span>
     </div>
     <div class="stat reveal" style="--d:.2s">
-      <span class="stat-num">$15B+</span>
+      <span class="stat-num">1000+</span>
       <span class="stat-label">Expected<br>deal flow</span>
     </div>
     <div class="stat reveal" style="--d:.3s">
@@ -1566,12 +1592,12 @@
   <section class="tagline-section">
     <div class="tagline-row">
       <span class="tagline-text dim reveal" style="--d:.0s">Largest sovereign capital</span>
-      <div class="tagline-pill reveal-scale" style="--d:.15s; background: linear-gradient(135deg,#2a1a08,#5a3010);"></div>
+      <div class="tagline-pill reveal-scale" style="--d:.15s"><img src="image1.jpeg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" /></div>
       <span class="tagline-text dim reveal" style="--d:.05s">gathering</span>
     </div>
     <div class="tagline-row">
       <span class="tagline-text dark reveal" style="--d:.2s">on</span>
-      <div class="tagline-pill reveal-scale" style="--d:.3s; background: linear-gradient(135deg,#1a0a04,#3d1f0a);"></div>
+      <div class="tagline-pill reveal-scale" style="--d:.3s"><img src="image2.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" /></div>
       <span class="tagline-text dark reveal" style="--d:.25s">US Soil</span>
     </div>
   </section>
@@ -1844,44 +1870,58 @@
        WHO ATTENDS
   ══════════════════════════════════════════════ -->
   <section class="who-attends">
+
     <div class="wa-left reveal">
       <p class="wa-label">Who Attends</p>
-      <h2 class="wa-title">Where sovereign capital shapes the future</h2>
-      <p class="wa-note">The world's most consequential capital allocators — by invitation only. Every seat is earned.</p>
+      <div class="wa-gold-line"></div>
+      <h2 class="wa-title">Where sovereign capital<br>shapes the <em>future</em></h2>
+      <p class="wa-note">An invitation-only ecosystem of the world's most influential capital allocators.</p>
     </div>
+
     <div class="wa-right">
-
       <div class="wa-row reveal" style="--d:.0s">
-        <span class="wa-index">01</span>
-        <div class="wa-photo"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=80&h=80&fit=crop&crop=face" alt="" /></div>
-        <span class="wa-name">Sovereign Wealth Funds</span>
+        <div class="wa-thumb"><img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=320&h=210&fit=crop&q=80" alt="Sovereign Wealth Funds" /></div>
+        <div class="wa-info">
+          <p class="wa-name">Sovereign Wealth Funds</p>
+          <p class="wa-desc">Long-term capital. Global impact.</p>
+        </div>
       </div>
-
       <div class="wa-row reveal" style="--d:.06s">
-        <span class="wa-index">02</span>
-        <div class="wa-photo"><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&h=80&fit=crop&crop=face" alt="" /></div>
-        <span class="wa-name">Pension Funds</span>
+        <div class="wa-thumb"><img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=320&h=210&fit=crop&q=80" alt="Global Pension Funds" /></div>
+        <div class="wa-info">
+          <p class="wa-name">Global Pension Funds</p>
+          <p class="wa-desc">Securing futures. Generating impact.</p>
+        </div>
       </div>
-
       <div class="wa-row reveal" style="--d:.12s">
-        <span class="wa-index">03</span>
-        <div class="wa-photo"><img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=80&h=80&fit=crop&crop=face" alt="" /></div>
-        <span class="wa-name">Institutional Investors</span>
+        <div class="wa-thumb"><img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=320&h=210&fit=crop&q=80" alt="Institutional Investors" /></div>
+        <div class="wa-info">
+          <p class="wa-name">Institutional Investors</p>
+          <p class="wa-desc">Allocating with conviction. Driving value.</p>
+        </div>
       </div>
-
       <div class="wa-row reveal" style="--d:.18s">
-        <span class="wa-index">04</span>
-        <div class="wa-photo"><img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=80&h=80&fit=crop&crop=face" alt="" /></div>
-        <span class="wa-name">Family Offices</span>
+        <div class="wa-thumb"><img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=320&h=210&fit=crop&q=80" alt="Family Offices" /></div>
+        <div class="wa-info">
+          <p class="wa-name">Family Offices</p>
+          <p class="wa-desc">Preserving legacy. Building tomorrow.</p>
+        </div>
       </div>
-
       <div class="wa-row reveal" style="--d:.24s">
-        <span class="wa-index">05</span>
-        <div class="wa-photo"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face" alt="" /></div>
-        <span class="wa-name">Government &amp; Policy Leaders</span>
+        <div class="wa-thumb"><img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=320&h=210&fit=crop&q=80" alt="Government & Policy Leaders" /></div>
+        <div class="wa-info">
+          <p class="wa-name">Government &amp; Policy Leaders</p>
+          <p class="wa-desc">Shaping policy. Building prosperity.</p>
+        </div>
       </div>
-
     </div>
+
+    <div class="wa-bottom-bar">
+      <div class="wa-diamond"></div>
+      <span>Attendance is curated. Participation is limited.</span>
+      <div class="wa-diamond"></div>
+    </div>
+
   </section>
 
   <!-- ══════════════════════════════════════════════
