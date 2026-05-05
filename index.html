@@ -815,6 +815,13 @@
       min-height: clamp(100px,12vw,140px);
     }
     .partner-tile:hover { background: rgba(166,28,31,0.04); }
+    .partner-logo-img {
+      max-height: 44px; max-width: 100%; width: auto; display: block;
+      object-fit: contain;
+      filter: grayscale(1) brightness(0.15);
+      transition: filter .25s;
+    }
+    .partner-tile:hover .partner-logo-img { filter: grayscale(0.3) brightness(0.8); }
     .partner-name {
       font-family: var(--sans); font-size: clamp(13px,1.6vw,18px); font-weight: 700;
       letter-spacing: -0.01em; color: var(--black); text-align: center; line-height: 1.1;
@@ -1242,10 +1249,10 @@
       color: var(--gold); opacity: 0.8;
     }
     .wi-panel-title {
-      font-family: var(--serif); font-style: italic; font-weight: 400;
-      font-size: clamp(16px, 1.8vw, 22px);
-      color: var(--gold); letter-spacing: -0.01em; text-transform: none;
-      line-height: 1.2;
+      font-family: var(--serif); font-style: normal; font-weight: 400;
+      font-size: clamp(22px, 3vw, 40px);
+      color: var(--gold); letter-spacing: -0.02em; text-transform: none;
+      line-height: 1.1;
     }
     .wi-panel-desc {
       font-family: var(--sans); font-size: 13px;
@@ -2044,24 +2051,19 @@
 
     <div class="partners-logos">
       <div class="partner-tile reveal" style="--d:.0s">
-        <span class="partner-name">BlackRock</span>
-        <span class="partner-sub">Private Markets</span>
+        <img src="BlackRock_wordmark.svg.png" alt="BlackRock" class="partner-logo-img" />
       </div>
       <div class="partner-tile reveal" style="--d:.05s">
-        <span class="partner-name">KKR</span>
-        <span class="partner-sub">Alternative Assets</span>
+        <img src="Kohlberg_Kravis_Roberts_(logo).svg.png" alt="KKR" class="partner-logo-img" />
       </div>
       <div class="partner-tile reveal" style="--d:.1s">
-        <span class="partner-name">Mubadala</span>
-        <span class="partner-sub">Investment Company</span>
+        <img src="mubadala-investment-company-logo-png_seeklogo-434556.png" alt="Mubadala" class="partner-logo-img" />
       </div>
       <div class="partner-tile reveal" style="--d:.15s">
-        <span class="partner-name">GIC</span>
-        <span class="partner-sub">Global Investments</span>
+        <img src="Gic-logo.svg.png" alt="GIC" class="partner-logo-img" />
       </div>
       <div class="partner-tile reveal" style="--d:.2s">
-        <span class="partner-name">APG</span>
-        <span class="partner-sub">Asset Management</span>
+        <img src="The_logo_of_APG.svg.png" alt="APG" class="partner-logo-img" />
       </div>
     </div>
 
