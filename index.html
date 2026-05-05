@@ -420,8 +420,8 @@
     ═══════════════════════════════════════════════════════════ */
     .faq-section {
       background: var(--black);
-      padding: clamp(48px, 6vw, 88px) var(--px);
-      display: flex; flex-direction: column; gap: 52px;
+      padding: clamp(36px, 5vw, 64px) var(--px);
+      display: flex; flex-direction: column; gap: 32px;
     }
     .faq-heading { display: flex; flex-direction: column; gap: 10px; }
     .faq-tag {
@@ -436,7 +436,7 @@
     .faq-list { display: flex; flex-direction: column; }
     .faq-item {
       display: flex; align-items: center; justify-content: space-between;
-      gap: 24px; padding: 28px 0;
+      gap: 24px; padding: 16px 0;
       border-bottom: 1px solid var(--border-w);
       cursor: pointer; user-select: none;
     }
@@ -452,7 +452,7 @@
     }
     .faq-item.open .faq-icon { opacity: 1; }
     .faq-answer {
-      display: none; padding: 0 0 28px;
+      display: none; padding: 0 0 16px;
       font-family: var(--sans); font-size: clamp(13px, 1.3vw, 15px);
       line-height: 1.75; color: rgba(255,255,255,0.55);
     }
@@ -594,6 +594,7 @@
     .wa-right {
       grid-column: 2; grid-row: 1;
       display: flex; flex-direction: column;
+      min-width: 0;
     }
     .wa-row {
       display: flex; align-items: center; gap: 20px;
@@ -650,11 +651,31 @@
       box-shadow: 0 0 12px rgba(201,168,76,0.6);
     }
     @media (max-width: 768px) {
-      .who-attends { grid-template-columns: 1fr; grid-template-rows: auto auto auto; }
-      .wa-left { grid-column: 1; border-right: none; border-bottom: 1px solid rgba(201,168,76,0.15); }
-      .wa-right { grid-column: 1; }
-      .wa-bottom-bar { grid-column: 1; }
-      .wa-thumb { width: 90px; height: 60px; }
+      .who-attends {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+      }
+      .wa-left {
+        grid-column: 1; grid-row: 1;
+        border-right: none;
+        border-bottom: 1px solid rgba(201,168,76,0.15);
+        padding: 40px var(--px);
+      }
+      .wa-right {
+        grid-column: 1; grid-row: 2;
+      }
+      .wa-bottom-bar {
+        grid-column: 1; grid-row: 3;
+      }
+      .wa-row {
+        padding: 14px 20px; gap: 14px;
+      }
+      .wa-thumb {
+        width: 80px; height: 54px;
+        flex-shrink: 0;
+      }
+      .wa-name { font-size: 11px; letter-spacing: 1.2px; }
+      .wa-desc { font-size: 12px; }
     }
     /* Agenda day panels */
     .agenda-day { display: none; flex-direction: column; }
@@ -667,12 +688,6 @@
       padding: 3px 8px; border-radius: 3px; margin-left: 10px;
       vertical-align: middle; position: relative; top: -2px;
     }
-    @media (max-width: 768px) {
-      .who-attends { grid-template-columns: 1fr; }
-      .wa-left { border-right: none; border-bottom: 1px solid var(--border); position: static; }
-      .wa-right { padding-top: 0; }
-    }
-
     /* ═══════════════════════════════════════════════════════════
        ATTENDEE COMPOSITION
     ═══════════════════════════════════════════════════════════ */
@@ -2017,199 +2032,6 @@
   </section>
 
   <!-- ══════════════════════════════════════════════
-       DALLAS SECTION
-  ══════════════════════════════════════════════ -->
-  <section class="dallas-section">
-    <div class="dallas-img">
-      <!-- Dallas skyline illustration: Reunion Tower + downtown silhouette -->
-      <svg viewBox="0 0 800 480" preserveAspectRatio="xMidYMax meet" xmlns="http://www.w3.org/2000/svg" style="position:relative;z-index:2;">
-        <defs>
-          <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#0a0203"/>
-            <stop offset="100%" stop-color="#1a0608"/>
-          </linearGradient>
-          <linearGradient id="goldGlow" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#c9a84c" stop-opacity="0.9"/>
-            <stop offset="100%" stop-color="#8a6a1e" stop-opacity="0.6"/>
-          </linearGradient>
-          <linearGradient id="bldgGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#2a1208"/>
-            <stop offset="100%" stop-color="#0f0404"/>
-          </linearGradient>
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
-            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
-          <filter id="softglow">
-            <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
-            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
-        </defs>
-
-        <!-- ground glow -->
-        <ellipse cx="400" cy="480" rx="380" ry="60" fill="rgba(201,168,76,0.08)"/>
-
-        <!-- ── far background buildings ── -->
-        <rect x="50"  y="310" width="28" height="170" fill="#120506" opacity=".7"/>
-        <rect x="82"  y="330" width="20" height="150" fill="#120506" opacity=".6"/>
-        <rect x="680" y="320" width="22" height="160" fill="#120506" opacity=".7"/>
-        <rect x="706" y="300" width="18" height="180" fill="#120506" opacity=".6"/>
-        <rect x="728" y="340" width="30" height="140" fill="#120506" opacity=".5"/>
-
-        <!-- ── mid buildings ── -->
-        <!-- Comerica / left cluster -->
-        <rect x="110" y="260" width="38" height="220" fill="url(#bldgGrad)"/>
-        <rect x="152" y="285" width="26" height="195" fill="url(#bldgGrad)"/>
-        <rect x="182" y="270" width="32" height="210" fill="url(#bldgGrad)"/>
-        <!-- windows -->
-        <rect x="115" y="270" width="4" height="4" fill="rgba(201,168,76,0.4)"/>
-        <rect x="123" y="270" width="4" height="4" fill="rgba(201,168,76,0.25)"/>
-        <rect x="131" y="270" width="4" height="4" fill="rgba(201,168,76,0.35)"/>
-        <rect x="115" y="282" width="4" height="4" fill="rgba(201,168,76,0.2)"/>
-        <rect x="131" y="282" width="4" height="4" fill="rgba(201,168,76,0.3)"/>
-        <rect x="115" y="294" width="4" height="4" fill="rgba(201,168,76,0.35)"/>
-        <rect x="123" y="294" width="4" height="4" fill="rgba(201,168,76,0.15)"/>
-
-        <!-- Renaissance Tower (center left, tall with antenna) -->
-        <rect x="220" y="200" width="44" height="280" fill="url(#bldgGrad)"/>
-        <rect x="228" y="180" width="28" height="200" fill="#1a0808"/>
-        <line x1="242" y1="180" x2="242" y2="130" stroke="#c9a84c" stroke-width="1.5" opacity=".6"/>
-        <circle cx="242" cy="130" r="2" fill="#c9a84c" opacity=".8" filter="url(#glow)"/>
-        <!-- windows grid -->
-        <rect x="225" y="200" width="5" height="5" fill="rgba(201,168,76,0.45)"/>
-        <rect x="234" y="200" width="5" height="5" fill="rgba(201,168,76,0.3)"/>
-        <rect x="243" y="200" width="5" height="5" fill="rgba(201,168,76,0.5)"/>
-        <rect x="225" y="214" width="5" height="5" fill="rgba(201,168,76,0.2)"/>
-        <rect x="234" y="214" width="5" height="5" fill="rgba(201,168,76,0.4)"/>
-        <rect x="225" y="228" width="5" height="5" fill="rgba(201,168,76,0.35)"/>
-        <rect x="243" y="228" width="5" height="5" fill="rgba(201,168,76,0.25)"/>
-
-        <!-- Bank of America Plaza (tallest, center) — stepped top -->
-        <rect x="300" y="150" width="56" height="330" fill="url(#bldgGrad)"/>
-        <rect x="308" y="130" width="40" height="170" fill="#1e0a08"/>
-        <rect x="318" y="110" width="20" height="140" fill="#1a0808"/>
-        <!-- BofA spire / antenna -->
-        <line x1="328" y1="110" x2="328" y2="50" stroke="url(#goldGlow)" stroke-width="2"/>
-        <circle cx="328" cy="50" r="3" fill="#c9a84c" filter="url(#glow)"/>
-        <circle cx="328" cy="50" r="8" fill="rgba(201,168,76,0.15)" filter="url(#softglow)"/>
-        <!-- green accent light suggestion -->
-        <rect x="305" y="152" width="46" height="2" fill="rgba(201,168,76,0.3)"/>
-        <!-- windows -->
-        <rect x="305" y="165" width="6" height="6" fill="rgba(201,168,76,0.5)"/>
-        <rect x="316" y="165" width="6" height="6" fill="rgba(201,168,76,0.35)"/>
-        <rect x="327" y="165" width="6" height="6" fill="rgba(201,168,76,0.5)"/>
-        <rect x="338" y="165" width="6" height="6" fill="rgba(201,168,76,0.3)"/>
-        <rect x="305" y="180" width="6" height="6" fill="rgba(201,168,76,0.25)"/>
-        <rect x="316" y="180" width="6" height="6" fill="rgba(201,168,76,0.45)"/>
-        <rect x="338" y="180" width="6" height="6" fill="rgba(201,168,76,0.3)"/>
-        <rect x="305" y="195" width="6" height="6" fill="rgba(201,168,76,0.4)"/>
-        <rect x="327" y="195" width="6" height="6" fill="rgba(201,168,76,0.2)"/>
-        <rect x="338" y="195" width="6" height="6" fill="rgba(201,168,76,0.4)"/>
-
-        <!-- Chase Tower (right of center) -->
-        <rect x="370" y="185" width="48" height="295" fill="url(#bldgGrad)"/>
-        <rect x="376" y="170" width="36" height="200" fill="#180908"/>
-        <line x1="394" y1="170" x2="394" y2="120" stroke="#c9a84c" stroke-width="1.2" opacity=".5"/>
-        <circle cx="394" cy="120" r="2" fill="#c9a84c" opacity=".7" filter="url(#glow)"/>
-        <rect x="374" y="192" width="6" height="6" fill="rgba(201,168,76,0.4)"/>
-        <rect x="384" y="192" width="6" height="6" fill="rgba(201,168,76,0.3)"/>
-        <rect x="394" y="192" width="6" height="6" fill="rgba(201,168,76,0.45)"/>
-        <rect x="374" y="207" width="6" height="6" fill="rgba(201,168,76,0.2)"/>
-        <rect x="394" y="207" width="6" height="6" fill="rgba(201,168,76,0.35)"/>
-        <rect x="374" y="222" width="6" height="6" fill="rgba(201,168,76,0.4)"/>
-        <rect x="384" y="222" width="6" height="6" fill="rgba(201,168,76,0.25)"/>
-
-        <!-- ══ REUNION TOWER (iconic) ══ -->
-        <!-- base/podium -->
-        <rect x="448" y="400" width="44" height="80" fill="#0f0504"/>
-        <rect x="455" y="380" width="30" height="40" fill="#130605"/>
-        <!-- shaft -->
-        <rect x="463" y="230" width="14" height="160" fill="#1a0807"/>
-        <!-- sphere support collar -->
-        <ellipse cx="470" cy="230" rx="20" ry="5" fill="#1e0a08"/>
-        <!-- sphere glow halo -->
-        <circle cx="470" cy="200" r="38" fill="rgba(201,168,76,0.06)" filter="url(#softglow)"/>
-        <circle cx="470" cy="200" r="28" fill="rgba(201,168,76,0.1)" filter="url(#softglow)"/>
-        <!-- sphere -->
-        <circle cx="470" cy="200" r="24" fill="url(#bldgGrad)" stroke="#c9a84c" stroke-width="1.2" stroke-opacity=".6"/>
-        <!-- sphere horizontal rings -->
-        <ellipse cx="470" cy="196" rx="24" ry="5"  fill="none" stroke="#c9a84c" stroke-width=".6" stroke-opacity=".5"/>
-        <ellipse cx="470" cy="204" rx="22" ry="4.5" fill="none" stroke="#c9a84c" stroke-width=".5" stroke-opacity=".4"/>
-        <ellipse cx="470" cy="188" rx="18" ry="3.5" fill="none" stroke="#c9a84c" stroke-width=".5" stroke-opacity=".35"/>
-        <!-- sphere vertical lines -->
-        <line x1="470" y1="176" x2="470" y2="224" stroke="#c9a84c" stroke-width=".5" stroke-opacity=".4"/>
-        <line x1="452" y1="195" x2="488" y2="205" stroke="#c9a84c" stroke-width=".4" stroke-opacity=".3"/>
-        <!-- sphere lights -->
-        <circle cx="470" cy="200" r="5" fill="rgba(201,168,76,0.6)" filter="url(#glow)"/>
-        <circle cx="458" cy="196" r="1.5" fill="rgba(201,168,76,0.8)" filter="url(#glow)"/>
-        <circle cx="482" cy="204" r="1.5" fill="rgba(201,168,76,0.7)" filter="url(#glow)"/>
-        <circle cx="462" cy="208" r="1.5" fill="rgba(201,168,76,0.6)" filter="url(#glow)"/>
-        <circle cx="478" cy="193" r="1.5" fill="rgba(201,168,76,0.7)" filter="url(#glow)"/>
-        <!-- antenna -->
-        <line x1="470" y1="176" x2="470" y2="148" stroke="#c9a84c" stroke-width="1.2" opacity=".7"/>
-        <circle cx="470" cy="148" r="2.5" fill="#c9a84c" filter="url(#glow)"/>
-
-        <!-- right cluster buildings -->
-        <rect x="510" y="230" width="38" height="250" fill="url(#bldgGrad)"/>
-        <rect x="552" y="250" width="30" height="230" fill="#160707"/>
-        <rect x="586" y="270" width="36" height="210" fill="url(#bldgGrad)"/>
-        <rect x="626" y="240" width="32" height="240" fill="#150606"/>
-        <line x1="529" y1="230" x2="529" y2="195" stroke="#c9a84c" stroke-width="1" opacity=".4"/>
-        <circle cx="529" cy="195" r="1.5" fill="#c9a84c" opacity=".6" filter="url(#glow)"/>
-        <rect x="514" y="245" width="5" height="5" fill="rgba(201,168,76,0.35)"/>
-        <rect x="523" y="245" width="5" height="5" fill="rgba(201,168,76,0.2)"/>
-        <rect x="532" y="245" width="5" height="5" fill="rgba(201,168,76,0.4)"/>
-        <rect x="514" y="260" width="5" height="5" fill="rgba(201,168,76,0.25)"/>
-        <rect x="532" y="260" width="5" height="5" fill="rgba(201,168,76,0.3)"/>
-        <rect x="557" y="258" width="5" height="5" fill="rgba(201,168,76,0.3)"/>
-        <rect x="566" y="258" width="5" height="5" fill="rgba(201,168,76,0.2)"/>
-        <rect x="591" y="278" width="5" height="5" fill="rgba(201,168,76,0.35)"/>
-        <rect x="600" y="278" width="5" height="5" fill="rgba(201,168,76,0.2)"/>
-
-        <!-- ground level / base fill -->
-        <rect x="0" y="460" width="800" height="20" fill="#080202"/>
-
-        <!-- horizon glow line -->
-        <line x1="0" y1="460" x2="800" y2="460" stroke="rgba(201,168,76,0.18)" stroke-width="1"/>
-
-        <!-- DALLAS text label -->
-        <text x="400" y="430" text-anchor="middle"
-          font-family="'Instrument Sans', sans-serif" font-size="11"
-          font-weight="700" letter-spacing="8"
-          fill="rgba(201,168,76,0.35)">DALLAS, TEXAS</text>
-      </svg>
-    </div>
-    <div class="dallas-content reveal">
-      <p class="dallas-label">The Host City</p>
-      <h2 class="dallas-title">Dallas, Texas</h2>
-      <p class="dallas-sub">A Rising Global Capital Hub</p>
-      <div class="dallas-bullets">
-        <div class="dallas-bullet">
-          <span class="dallas-bullet-dot"></span>
-          <span class="dallas-bullet-text">
-            <strong>Strategic Location</strong>
-            Central US hub with direct connectivity to every major global financial centre — New York, London, Dubai, Singapore.
-          </span>
-        </div>
-        <div class="dallas-bullet">
-          <span class="dallas-bullet-dot"></span>
-          <span class="dallas-bullet-text">
-            <strong>World-Class Venues & Hospitality</strong>
-            Home to world-class conference facilities, Michelin-calibre dining, and hospitality built for heads of state.
-          </span>
-        </div>
-        <div class="dallas-bullet">
-          <span class="dallas-bullet-dot"></span>
-          <span class="dallas-bullet-text">
-            <strong>Rising Business Ecosystem</strong>
-            The fastest-growing financial and business centre in the US — a pro-growth environment with no state income tax.
-          </span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════════════════════
        STRATEGIC PARTNERS
   ══════════════════════════════════════════════ -->
   <section class="partners">
@@ -2258,7 +2080,7 @@
   <section class="faq-section">
     <div class="faq-heading">
       <p class="faq-tag reveal" style="--d:.0s">Frequently Asked</p>
-      <h2 class="faq-title reveal-blur" style="--d:.1s">Common Questions</h2>
+      <h2 class="faq-title reveal-blur" style="--d:.1s">FAQs</h2>
     </div>
     <div class="faq-list">
 
@@ -2758,14 +2580,18 @@
           const el  = e.target;
           const raw = el.textContent.trim();
           const num = parseFloat(raw.replace(/[^0-9.]/g,''));
-          const suffix = raw.replace(/[0-9.]/g,'');
           if (isNaN(num)) return;
+          /* split into prefix (before first digit) and suffix (after last digit) */
+          const prefixMatch = raw.match(/^[^0-9]*/);
+          const suffixMatch = raw.match(/[^0-9]*$/);
+          const prefix = prefixMatch ? prefixMatch[0] : '';
+          const suffix = suffixMatch ? suffixMatch[0] : '';
           let start; const dur = 1200;
           function step(ts) {
             if (!start) start = ts;
             const p    = Math.min((ts - start) / dur, 1);
             const ease = 1 - Math.pow(1 - p, 3);
-            el.textContent = (num < 10
+            el.textContent = prefix + (num < 10
               ? (ease * num).toFixed(1)
               : Math.round(ease * num)) + suffix;
             if (p < 1) requestAnimationFrame(step);
